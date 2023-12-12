@@ -6,7 +6,7 @@ import pygame as pg
 from pygame import Surface, Rect
 from pygame.font import Font
 
-from code.Const import WIN_WIDTH, COLOR_ORANGE, MENU_OPTION, COLOR_WHITE, COLOR_YELLOW
+from code.Const import COLOR_ORANGE, WIN_WIDTH, MENU_OPTION, COLOR_YELLOW, COLOR_WHITE
 
 
 class Menu:
@@ -27,7 +27,7 @@ class Menu:
 
             for i in range(len(MENU_OPTION)):
                 if i == menu_option:
-                    self.menu_text(20, MENU_OPTION[i], COLOR_YELLOW,((WIN_WIDTH / 2), 200 + 30 * i))
+                    self.menu_text(20, MENU_OPTION[i], COLOR_YELLOW, ((WIN_WIDTH / 2), 200 + 30 * i))
                 else:
                     self.menu_text(20, MENU_OPTION[i], COLOR_WHITE, ((WIN_WIDTH / 2), 200 + 30 * i))
             pg.display.flip()
@@ -35,11 +35,11 @@ class Menu:
             # verificar eventos
             for event in pg.event.get():
                 if event.type == pg.QUIT:
-                    pg.quit() # encerra o método pygame, mas não a execução como um tudo
-                    sys.exit() # tira a mensagem de erro
-                if event.type == pg.KEYDOWN:   # testar se alguma tecla foi pressionada
+                    pg.quit()  # encerra o método pygame, mas não a execução como um tudo
+                    sys.exit()  # tira a mensagem de erro
+                if event.type == pg.KEYDOWN:  # testar se alguma tecla foi pressionada
                     if event.key == pg.K_DOWN:  # se a tecla seta para baixo foi pressionada
-                        if menu_option < len(MENU_OPTION) -1:
+                        if menu_option < len(MENU_OPTION) - 1:
                             menu_option += 1
                         else:
                             menu_option = 0
@@ -47,13 +47,12 @@ class Menu:
                         if menu_option > 0:
                             menu_option -= 1
                         else:
-                            menu_option = len(MENU_OPTION) -1
+                            menu_option = len(MENU_OPTION) - 1
                     if event.key == pg.K_RETURN:  # se a tecla ENTER foi pressionada
                         return MENU_OPTION[menu_option]
 
-
     def menu_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
         text_font: Font = pg.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
-        text_surf: Surface = text_font.render(text, True, text_color)
+        text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(center=text_center_pos)
         self.window.blit(source=text_surf, dest=text_rect)

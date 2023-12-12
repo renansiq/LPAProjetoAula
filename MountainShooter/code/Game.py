@@ -29,6 +29,3 @@ class Game:
                 sys.exit()
 
 
-        pass
-
-
